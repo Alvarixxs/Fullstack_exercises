@@ -55,7 +55,7 @@ function Country({country}) {
       .get("http://api.weatherapi.com/v1/current.json?key="+api_key+"&q="+country.name.common)
       .then(res => setWeather(res.data))
   }, [country.name.common]);
-  
+
   return (
     <div>
       <h2>{country.name.common}</h2>
