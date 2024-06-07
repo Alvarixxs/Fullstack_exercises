@@ -1,10 +1,10 @@
 
-function Content(props) {
+function Content({content}) {
   return (
     <div>
-      <Part part={props.part1} exercises={props.exercises1}></Part>
-      <Part part={props.part2} exercises={props.exercises2}></Part>
-      <Part part={props.part3} exercises={props.exercises3}></Part>
+      <Part part={content[0].name} exercises={content[0].exercises}></Part>
+      <Part part={content[1].name} exercises={content[1].exercises}></Part>
+      <Part part={content[2].name} exercises={content[2].exercises}></Part>
     </div>
   )
 }
