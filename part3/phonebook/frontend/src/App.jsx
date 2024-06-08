@@ -31,8 +31,8 @@ const App = () => {
               return {name: person.name, number: (person.id===res.data.id) ? res.data.number: person.number, id: person.id}
             }))
           })
-          .catch(() => {
-            setMessage("Information of " + person.name + " has already been removed from the server")
+          .catch(error => {
+            setMessage(error.response.data.error)
             setCl('error')
             setTimeout(() => {
               setMessage(null)
@@ -50,6 +50,13 @@ const App = () => {
           setNewNumber('')
           setMessage("Added " + person.name)
           setCl('success')
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        })
+        .catch(error=> {
+          setMessage(error.response.data.error)
+          setCl('error')
           setTimeout(() => {
             setMessage(null)
           }, 5000)
