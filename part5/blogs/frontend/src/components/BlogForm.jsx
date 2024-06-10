@@ -24,7 +24,9 @@ function BlogForm({ createBlog }) {
       <form onSubmit={addBlog}>
         <div>
           title
-          <input type="text"
+          <input
+            data-testid="title"
+            type="text"
             value={title}
             name="Title"
             onChange={({ target }) => setTitle(target.value)}
@@ -33,7 +35,9 @@ function BlogForm({ createBlog }) {
         </div>
         <div>
           author
-          <input type="text"
+          <input
+            data-testid="author"
+            type="text"
             value={author}
             name="Author"
             onChange={({ target }) => setAuthor(target.value)}
@@ -43,7 +47,9 @@ function BlogForm({ createBlog }) {
         </div>
         <div>
           url
-          <input type="text"
+          <input
+            data-testid="url"
+            type="text"
             value={url}
             name="Url"
             onChange={({ target }) => setUrl(target.value)}
