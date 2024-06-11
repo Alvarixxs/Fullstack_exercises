@@ -1,5 +1,4 @@
 import {useDispatch, useSelector} from "react-redux";
-import {voteTo} from "../reducers/anecdoteReducer.js";
 
 // eslint-disable-next-line react/prop-types
 const Anecdote = ({anecdote, handleClick}) => {
@@ -21,14 +20,29 @@ const Anecdote = ({anecdote, handleClick}) => {
 
 function AnecdoteList() {
   const dispatch = useDispatch()
-  const anecdotes = useSelector(state => state.sort((a,b) => b.votes - a.votes))
+  const anecdotes =
+    useSelector(state =>
+      [...state.anecdotes]
+        .filter((anecdote) =>
+          anecdote.content.toLowerCase().includes(state.filter.toLowerCase())
+        )
+        .sort((a,b) =>
+          b.votes - a.votes
+        )
+    )
+
+  const voteTo = (anecdote) => {
+    dispatch({type: 'anecdote/voteTo', payload: anecdote.id})
+    dispatch({type: 'message/messageSet', payload: 'you voted \'' + anecdote.content + '\''})
+    setTimeout(() => dispatch({type: 'message/messageRemove'}), 5000)
+  }
 
   return (
     anecdotes.map(anecdote =>
       <Anecdote
         key={anecdote.id}
         anecdote={anecdote}
-        handleClick={() => dispatch(voteTo(anecdote.id))}
+        handleClick={() => voteTo(anecdote)}
       ></Anecdote>
     )
   )

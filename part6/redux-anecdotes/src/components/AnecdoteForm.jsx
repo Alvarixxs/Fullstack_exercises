@@ -1,4 +1,3 @@
-import {createAnecdote} from "../reducers/anecdoteReducer.js";
 import {useDispatch} from "react-redux";
 
 function AnecdoteForm() {
@@ -6,9 +5,11 @@ function AnecdoteForm() {
 
   const addAnecdote = (event) => {
     event.preventDefault()
-    const anecdote = event.target.anecdote.value
+    const content = event.target.anecdote.value
+    dispatch({type: 'anecdote/createAnecdote', payload: content})
     event.target.anecdote.value = ''
-    dispatch(createAnecdote(anecdote))
+    dispatch({type: 'message/messageSet', payload: 'you created the anecdote \''+ content + '\''})
+    setTimeout(() => dispatch({type: 'message/messageRemove'}), 5000)
   }
 
   return (
