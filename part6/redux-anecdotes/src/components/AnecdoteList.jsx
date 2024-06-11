@@ -1,4 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
+import {voteAnecdote} from "../reducers/anecdoteReducer.js";
+import {setMessage} from "../reducers/messageReducer.js";
 
 // eslint-disable-next-line react/prop-types
 const Anecdote = ({anecdote, handleClick}) => {
@@ -32,9 +34,8 @@ function AnecdoteList() {
     )
 
   const voteTo = (anecdote) => {
-    dispatch({type: 'anecdote/voteTo', payload: anecdote.id})
-    dispatch({type: 'message/messageSet', payload: 'you voted \'' + anecdote.content + '\''})
-    setTimeout(() => dispatch({type: 'message/messageRemove'}), 5000)
+    dispatch(voteAnecdote(anecdote))
+    dispatch(setMessage(`you voted '${anecdote.content}'`, 10))
   }
 
   return (

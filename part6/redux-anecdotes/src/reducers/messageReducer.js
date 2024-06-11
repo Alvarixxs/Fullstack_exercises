@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import anecdoteService from "../services/anecdotes.js";
 
 const messageReducer = createSlice({
   name: 'message',
@@ -12,5 +13,12 @@ const messageReducer = createSlice({
     }
   }
 })
+
+export const setMessage = (message, timeout) => {
+  return async dispatch => {
+    dispatch({type: 'message/messageSet', payload: message})
+    setTimeout(() => dispatch({type: 'message/messageRemove'}), timeout*1000)
+  }
+}
 
 export default messageReducer.reducer

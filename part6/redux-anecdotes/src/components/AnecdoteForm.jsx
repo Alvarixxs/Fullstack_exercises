@@ -1,15 +1,16 @@
 import {useDispatch} from "react-redux";
+import {createAnecdote} from "../reducers/anecdoteReducer.js";
+import {setMessage} from "../reducers/messageReducer.js";
 
 function AnecdoteForm() {
   const dispatch = useDispatch()
 
-  const addAnecdote = (event) => {
+  const addAnecdote = async (event) => {
     event.preventDefault()
     const content = event.target.anecdote.value
-    dispatch({type: 'anecdote/createAnecdote', payload: content})
+    dispatch(createAnecdote(content))
     event.target.anecdote.value = ''
-    dispatch({type: 'message/messageSet', payload: 'you created the anecdote \''+ content + '\''})
-    setTimeout(() => dispatch({type: 'message/messageRemove'}), 5000)
+    dispatch(setMessage(`you created the anecdote '${content}'`, 10))
   }
 
   return (
