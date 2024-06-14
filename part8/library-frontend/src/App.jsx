@@ -3,8 +3,8 @@ import Authors from "./components/Authors";
 import Books from "./components/Books";
 import NewBook from "./components/NewBook";
 
-import {useApolloClient, useQuery} from '@apollo/client'
-import {ALL_AUTHORS, FILTER_BOOKS, ME} from "./queries.js";
+import {useQuery, useSubscription, useApolloClient} from '@apollo/client'
+import {ALL_AUTHORS, BOOK_ADDED, FILTER_BOOKS, ME} from "./queries.js";
 import LoginForm from "./components/LoginForm.jsx";
 import Recommended from "./components/Recommended.jsx";
 
@@ -29,6 +29,13 @@ const App = () => {
     }
   }, []);
 
+  useSubscription(BOOK_ADDED, {
+    onData: ({ data, client }) => {
+      const addedBook = data.data.bookAdded
+      notify(`${addedBook.title} added`)
+      client.resetStore()
+    }
+  })
 
   useEffect(() => {
     if (filter==='') {
@@ -46,8 +53,7 @@ const App = () => {
   }
 
   const books = resultFilterBooks?.data?.allBooks
-  console.log(filter)
-  console.log(books)
+
   const notify = (message) => {
     setErrorMessage(message)
     setTimeout(() => {
