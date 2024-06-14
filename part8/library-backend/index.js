@@ -86,10 +86,11 @@ const resolvers = {
     authorCount: async () => Author.collection.countDocuments(),
     allBooks: async (root, args) => {
       if (!args.author && !args.genre) {
-        return Book.find({})
+        return Book.find({}).populate('author',{name: 1, born: 1, bookCount: 1})
       }
       else if (!args.author) {
-        return Book.find({genres: { $elemMatch: {$lte: args.genre}}})
+        console.log(await Book.find({genres: args.genre}).populate('author',{name: 1, born: 1, bookCount: 1}))
+        return Book.find({genres: args.genre}).populate('author',{name: 1, born: 1, bookCount: 1})
       }
       else if (!args.genre) {
         return null // TODO

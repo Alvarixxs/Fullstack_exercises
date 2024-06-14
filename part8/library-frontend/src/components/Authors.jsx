@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useMutation} from "@apollo/client";
-import {EDIT_AUTHOR} from "../queries/queries.js";
+import {EDIT_AUTHOR} from "../queries.js";
 import Select from 'react-select';
 
 const Authors = (props) => {
@@ -47,17 +47,21 @@ const Authors = (props) => {
         </tbody>
       </table>
       <h3>Set birthyear</h3>
-      <form onSubmit={submit}>
-        <div>
-          name
-          <Select defaultValue={name} onChange={setName} options={authors.map((author) => {return {value: author.name, label: author.name}})}></Select>
-        </div>
-        <div>
-          born
-          <input type="text" value={born} onChange={(e) => setBorn(e.target.value)}/>
-        </div>
-        <button type="submit">update author</button>
-      </form>
+      {props.token ? (
+        <form onSubmit={submit}>
+          <div>
+            name
+            <Select defaultValue={name} onChange={setName} options={authors.map((author) => {
+              return {value: author.name, label: author.name}
+            })}></Select>
+          </div>
+          <div>
+            born
+            <input type="text" value={born} onChange={(e) => setBorn(e.target.value)}/>
+          </div>
+          <button type="submit">update author</button>
+        </form>
+      ) : null}
     </div>
   )
 }

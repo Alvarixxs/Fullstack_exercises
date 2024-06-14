@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useMutation} from "@apollo/client";
-import {ALL_AUTHORS, ALL_BOOKS, CREATE_BOOK} from "../queries/queries.js";
+import {useApolloClient, useMutation} from "@apollo/client";
+import {ALL_AUTHORS, CREATE_BOOK, FILTER_BOOKS} from "../queries.js";
 
 const NewBook = (props) => {
   const [title, setTitle] = useState('')
@@ -8,9 +8,9 @@ const NewBook = (props) => {
   const [published, setPublished] = useState('')
   const [genre, setGenre] = useState('')
   const [genres, setGenres] = useState([])
+  const client = useApolloClient()
 
   const [createBook] = useMutation(CREATE_BOOK, {
-    refetchQueries: [ { query: ALL_AUTHORS }, { query: ALL_BOOKS }],
     onError: (error) => {
       const messages = error.graphQLErrors.map(e => e.message).join('\n')
       props.setError(messages)
@@ -25,7 +25,7 @@ const NewBook = (props) => {
     event.preventDefault()
 
     await createBook({variables: {title, author, published: parseInt(published), genres}})
-
+    await client.resetStore()
     setTitle('')
     setPublished('')
     setAuthor('')
