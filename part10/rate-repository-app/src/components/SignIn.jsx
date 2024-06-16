@@ -3,6 +3,10 @@ import { useFormik } from 'formik';
 import {Pressable, TextInput, View, StyleSheet} from "react-native";
 import theme from "../theme";
 import * as yup from 'yup';
+import useSignIn from "../hooks/useSignIn";
+import useAuthStorage from '../hooks/useAuthStorage';
+import {useNavigate} from "react-router-native";
+
 
 const styles = StyleSheet.create({
   container: {
@@ -31,27 +35,36 @@ const styles = StyleSheet.create({
   }
 })
 
-const initialValues = {
-  username: '',
-  password: '',
-};
-
-const onSubmit = (values) => {
-  console.log(values);
-  values.username = ''
-  values.password = ''
-};
-
-const validationSchema = yup.object().shape({
-  username: yup
-    .string()
-    .required('username is required'),
-  password: yup
-    .string()
-    .required('password is required'),
-});
-
 const SignIn = () => {
+  const authStorage = useAuthStorage();
+  const [signIn] = useSignIn(authStorage);
+  const navigate = useNavigate()
+
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+
+    try {
+      const { data } = await signIn({ username, password });
+      navigate("/")
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const initialValues = {
+    username: '',
+    password: '',
+  };
+
+  const validationSchema = yup.object().shape({
+    username: yup
+      .string()
+      .required('username is required'),
+    password: yup
+      .string()
+      .required('password is required'),
+  });
+
   const formik = useFormik({
     initialValues,
     validationSchema,

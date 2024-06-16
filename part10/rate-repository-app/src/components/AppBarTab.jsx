@@ -9,12 +9,16 @@ const styles = StyleSheet.create({
   }
 })
 
-function AppBarTab({to, text}) {
+function AppBarTab({to, text, onPress=null}) {
   return (
-    <Pressable>
-      <Link to={to}>
+    <Pressable onPress={onPress}>
+      {onPress ? (
         <Text style={styles.text} fontSize="subheading" fontWeight="bold">{text}</Text>
-      </Link>
+      ) : (
+        <Link to={to}>
+          <Text style={styles.text} fontSize="subheading" fontWeight="bold">{text}</Text>
+        </Link>
+      )}
     </Pressable>
   )
 }
