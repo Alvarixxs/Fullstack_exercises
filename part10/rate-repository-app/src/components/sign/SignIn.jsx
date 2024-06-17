@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import useSignIn from "../hooks/useSignIn";
 import useAuthStorage from '../hooks/useAuthStorage';
 import {useNavigate} from "react-router-native";
+import {useState} from "react";
 
 
 const styles = StyleSheet.create({
@@ -35,22 +36,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const SignIn = () => {
-  const authStorage = useAuthStorage();
-  const [signIn] = useSignIn(authStorage);
-  const navigate = useNavigate()
-
-  const onSubmit = async (values) => {
-    const { username, password } = values;
-
-    try {
-      const { data } = await signIn({ username, password });
-      navigate("/")
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
+export const SignInContainer = ({onSubmit, message}) => {
   const initialValues = {
     username: '',
     password: '',
@@ -93,9 +79,35 @@ const SignIn = () => {
         <Text style={{ color: theme.colors.error}}>{formik.errors.password}</Text>
       )}
       <Pressable style={styles.button} onPress={formik.handleSubmit}>
-        <Text style={styles.text}>Sign in</Text>
+        <Text style={styles.text} fontWeight="bold">Sign in</Text>
       </Pressable>
+      {message ? (
+        <Text style={{color: 'red'}}>{message}</Text>
+      ): null}
     </View>
+  )
+}
+
+const SignIn = () => {
+  const authStorage = useAuthStorage();
+  const [signIn] = useSignIn(authStorage);
+  const navigate = useNavigate()
+  const [message, setMessage] = useState(null)
+
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+
+    try {
+      await signIn({ username, password });
+      navigate("/")
+    } catch (e) {
+      console.log(e);
+      setMessage(e.message)
+    }
+  };
+
+  return (
+    <SignInContainer onSubmit={onSubmit} message={message} />
   )
 }
 

@@ -5,6 +5,7 @@ import AppBarTab from "./AppBarTab";
 import {useApolloClient, useQuery} from "@apollo/client";
 import {ME} from "../graphql/queries";
 import useAuthStorage from "../hooks/useAuthStorage";
+import {useNavigate} from "react-router-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -22,6 +23,7 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
   const {data} = useQuery(ME, { fetchPolicy: 'network-only' })
+  const navigate = useNavigate()
 
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
@@ -29,6 +31,7 @@ const AppBar = () => {
   const handleLogout = async () => {
     await authStorage.removeAccessToken();
     await apolloClient.resetStore();
+    navigate("/")
   }
 
   return (
@@ -37,7 +40,7 @@ const AppBar = () => {
         <AppBarTab to="/" text="Repositories"/>
         {data?.me ? (
           <View style={styles.signoutContainer}>
-            <AppBarTab to="/" text={`Hello, ${data.me.username}`} />
+            <AppBarTab to="/createReview" text="Create a review" />
             <AppBarTab onPress={handleLogout} to="/" text="Sign out" />
           </View>
         ) : (
