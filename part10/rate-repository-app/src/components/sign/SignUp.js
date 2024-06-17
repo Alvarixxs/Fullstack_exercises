@@ -7,6 +7,8 @@ import useSignIn from "../../hooks/useSignIn";
 import useAuthStorage from '../../hooks/useAuthStorage';
 import {useNavigate} from "react-router-native";
 import {useState} from "react";
+import {useMutation} from "@apollo/client";
+import {CREATE_USER} from "../../graphql/mutations";
 
 
 const styles = StyleSheet.create({
@@ -36,19 +38,28 @@ const styles = StyleSheet.create({
   }
 })
 
-export const SignInContainer = ({onSubmit, message}) => {
+export const SignUpContainer = ({onSubmit, message}) => {
   const initialValues = {
     username: '',
     password: '',
+    passwordConfirm: '',
   };
 
   const validationSchema = yup.object().shape({
     username: yup
       .string()
-      .required('username is required'),
+      .required('username is required')
+      .min(5, "username must be at least 5 characters")
+      .max(30, "username must be max 30 characters"),
     password: yup
       .string()
-      .required('password is required'),
+      .required('password is required')
+      .min(5, "password must be at least 5 characters")
+      .max(30, "password must be max 30 characters"),
+    passwordConfirm: yup
+      .string()
+      .required('confirm password is required')
+      .oneOf([yup.ref('password'), null], "passwords must match")
   });
 
   const formik = useFormik({
@@ -78,6 +89,16 @@ export const SignInContainer = ({onSubmit, message}) => {
       {formik.touched.password && formik.errors.password && (
         <Text style={{ color: theme.colors.error}}>{formik.errors.password}</Text>
       )}
+      <TextInput
+        secureTextEntry
+        style={[styles.input, formik.errors.passwordConfirm && styles.inputError]}
+        placeholder="Password confirmation"
+        value={formik.values.passwordConfirm}
+        onChangeText={formik.handleChange('passwordConfirm')}
+      />
+      {formik.touched.passwordConfirm && formik.errors.passwordConfirm && (
+        <Text style={{ color: theme.colors.error}}>{formik.errors.passwordConfirm}</Text>
+      )}
       <Pressable style={styles.button} onPress={formik.handleSubmit}>
         <Text style={styles.text} fontWeight="bold">Sign in</Text>
       </Pressable>
@@ -88,7 +109,8 @@ export const SignInContainer = ({onSubmit, message}) => {
   )
 }
 
-const SignIn = () => {
+const SignUp = () => {
+  const [mutate, result] = useMutation(CREATE_USER);
   const authStorage = useAuthStorage();
   const [signIn] = useSignIn(authStorage);
   const navigate = useNavigate()
@@ -98,6 +120,7 @@ const SignIn = () => {
     const { username, password } = values;
 
     try {
+      await mutate({ variables: { user: { username, password }}});
       await signIn({ username, password });
       navigate("/")
     } catch (e) {
@@ -107,8 +130,8 @@ const SignIn = () => {
   };
 
   return (
-    <SignInContainer onSubmit={onSubmit} message={message} />
+    <SignUpContainer onSubmit={onSubmit} message={message} />
   )
 }
 
-export default SignIn;
+export default SignUp;

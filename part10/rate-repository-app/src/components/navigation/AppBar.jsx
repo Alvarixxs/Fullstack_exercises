@@ -1,11 +1,12 @@
 import {View, StyleSheet, ScrollView} from 'react-native';
 import Constants from 'expo-constants';
-import theme from "../theme";
+import theme from "../../theme";
 import AppBarTab from "./AppBarTab";
 import {useApolloClient, useQuery} from "@apollo/client";
-import {ME} from "../graphql/queries";
-import useAuthStorage from "../hooks/useAuthStorage";
+import {ME} from "../../graphql/queries";
+import useAuthStorage from "../../hooks/useAuthStorage";
 import {useNavigate} from "react-router-native";
+import Text from "../utils/Text"
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
-  signoutContainer: {
+  subContainer: {
     display: 'flex',
     flexDirection: 'row',
   }
@@ -39,12 +40,16 @@ const AppBar = () => {
       <ScrollView horizontal>
         <AppBarTab to="/" text="Repositories"/>
         {data?.me ? (
-          <View style={styles.signoutContainer}>
+          <View style={styles.subContainer}>
             <AppBarTab to="/createReview" text="Create a review" />
+            <AppBarTab to="/reviews" text="My reviews" />
             <AppBarTab onPress={handleLogout} to="/" text="Sign out" />
           </View>
         ) : (
-          <AppBarTab to="/signin" text="Sign in" />
+          <View style={styles.subContainer}>
+            <AppBarTab to="/signin" text="Sign in" />
+            <AppBarTab to="/signup" text="Sign up" />
+          </View>
           )
         }
       </ScrollView>
