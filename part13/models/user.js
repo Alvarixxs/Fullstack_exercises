@@ -15,10 +15,17 @@ User.init({
     isEmail: true,
     unique: true,
     allowNull: false,
+    validate: {
+      isEmail: true, // Moved inside validate
+    }
   },
   name: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  disabled: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
   },
 }, {
   sequelize,

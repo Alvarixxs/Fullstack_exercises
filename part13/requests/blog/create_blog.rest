@@ -1,11 +1,224 @@
-POST http://localhost:3001/api/blogs
-Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsdmFyb2Rlc2FudHMiLCJpZCI6MSwiaWF0IjoxNzE4OTYxMjU1fQ.BufnkIwWPWgM2rNqnKl9bTghG7DMFfvK6-5Z5ZjlTHo
+@base_url = http://localhost:3001/api/blogs
+@content_type = application/json
+@token = bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJyaWFuam9obnNvbkBleGFtcGxlLmNvbSIsImlkIjoxLCJpYXQiOjE3MTk0ODQ5NTV9.2gb39tIv4yrL_JNi1c5gdAYgSOZhvxDjjbeaxf4BqtM
+###
+
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
 
 {
   "author": "Michael Collins",
-  "url": "http://example.com",
-  "title": "Economics for second year"
+  "url": "http://example.com/economics-1991",
+  "title": "Economics for second year",
+  "year": 1991
 }
-
 ###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Laura White",
+  "url": "http://example.com/technology-1995",
+  "title": "Introduction to Technology",
+  "year": 1995
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "David Johnson",
+  "url": "http://example.com/history-2000",
+  "title": "World History Overview",
+  "year": 2000
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Sarah Brown",
+  "url": "http://example.com/science-2002",
+  "title": "Science Fundamentals",
+  "year": 2002
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "John Smith",
+  "url": "http://example.com/literature-2005",
+  "title": "Literature for Beginners",
+  "year": 2005
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Emily Davis",
+  "url": "http://example.com/mathematics-2008",
+  "title": "Advanced Mathematics",
+  "year": 2008
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "James Wilson",
+  "url": "http://example.com/arts-2010",
+  "title": "Modern Arts",
+  "year": 2010
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Anna Taylor",
+  "url": "http://example.com/physics-2012",
+  "title": "Physics for Engineers",
+  "year": 2012
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Chris Harris",
+  "url": "http://example.com/chemistry-2014",
+  "title": "Organic Chemistry",
+  "year": 2014
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Jessica Lee",
+  "url": "http://example.com/biology-2016",
+  "title": "Biology 101",
+  "year": 2016
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Mark Robinson",
+  "url": "http://example.com/economics-2018",
+  "title": "Economics and Finance",
+  "year": 2018
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Nancy Martinez",
+  "url": "http://example.com/psychology-2019",
+  "title": "Introduction to Psychology",
+  "year": 2019
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "George Clark",
+  "url": "http://example.com/statistics-2020",
+  "title": "Statistics for Data Science",
+  "year": 2020
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Patricia Lewis",
+  "url": "http://example.com/law-2021",
+  "title": "Basics of Law",
+  "year": 2021
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Daniel Hall",
+  "url": "http://example.com/politics-2022",
+  "title": "Political Science",
+  "year": 2022
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Susan Allen",
+  "url": "http://example.com/engineering-2023",
+  "title": "Civil Engineering",
+  "year": 2023
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Robert Wright",
+  "url": "http://example.com/environment-2024",
+  "title": "Environmental Studies",
+  "year": 2024
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Linda King",
+  "url": "http://example.com/business-2013",
+  "title": "Business Management",
+  "year": 2013
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Steven Scott",
+  "url": "http://example.com/medicine-2017",
+  "title": "Introduction to Medicine",
+  "year": 2017
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+Authorization: {{token}}
+
+{
+  "author": "Barbara Green",
+  "url": "http://example.com/architecture-2015",
+  "title": "Architecture and Design",
+  "year": 2015
+}

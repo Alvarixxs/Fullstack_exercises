@@ -1,0 +1,38 @@
+@base_url = http://localhost:3001/api/readinglists
+@content_type = application/json
+
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "blogId": 10,
+  "userId": 3
+}
+###
+
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "blogId": 11,
+  "userId": 3
+}
+###
+
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "blogId": 5,
+  "userId": 3
+}
+###
+
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "blogId": 3,
+  "userId": 3
+}
+###

@@ -1,9 +1,162 @@
-POST http://localhost:3001/api/users
-Content-Type: application/json
+@base_url = http://localhost:3001/api/users
+@content_type = application/json
+
+POST {{base_url}}
+Content-Type: {{content_type}}
 
 {
-  "username": "alvarodesants",
-  "name": "Alvaro de Santos"
+  "username": "brianjohnson@example.com",
+  "name": "Brian Johnson"
 }
-
 ###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "carolynsmith@example.com",
+  "name": "Carolyn Smith"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "danielwilson@example.com",
+  "name": "Daniel Wilson"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "emilybrown@example.com",
+  "name": "Emily Brown"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "frankthomas@example.com",
+  "name": "Frank Thomas"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "gabrielrodriguez@example.com",
+  "name": "Gabriel Rodriguez"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "hannahscott@example.com",
+  "name": "Hannah Scott"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "ianmiller@example.com",
+  "name": "Ian Miller"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "jessicawong@example.com",
+  "name": "Jessica Wong"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "kevinparker@example.com",
+  "name": "Kevin Parker"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "laurajones@example.com",
+  "name": "Laura Jones"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "michaelnguyen@example.com",
+  "name": "Michael Nguyen"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "natalieadams@example.com",
+  "name": "Natalie Adams"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "oscarlopez@example.com",
+  "name": "Oscar Lopez"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "pamelaharris@example.com",
+  "name": "Pamela Harris"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "quentinmoore@example.com",
+  "name": "Quentin Moore"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "rebeccawilson@example.com",
+  "name": "Rebecca Wilson"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "samuelthompson@example.com",
+  "name": "Samuel Thompson"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "tiffanybrown@example.com",
+  "name": "Tiffany Brown"
+}
+###
+POST {{base_url}}
+Content-Type: {{content_type}}
+
+{
+  "username": "ulrichschmidt@example.com",
+  "name": "Ulrich Schmidt"
+}

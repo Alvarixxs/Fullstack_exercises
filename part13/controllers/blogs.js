@@ -1,9 +1,8 @@
 const router = require('express').Router()
-const jwt = require('jsonwebtoken')
-const { Blog } = require('../models')
-const {SECRET} = require("../util/config");
+const { Blog, Activesession} = require('../models')
 const User = require('../models/user')
 const {Op} = require("sequelize");
+const {tokenExtractor} = require("../util/middleware");
 
 router.get('/', async (req, res) => {
   let where = {}
@@ -37,23 +36,13 @@ router.get('/', async (req, res) => {
   res.json(blogs)
 })
 
-const tokenExtractor = (req, res, next) => {
-  const authorization = req.get('authorization')
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    try {
-      req.decodedToken = jwt.verify(authorization.substring(7), SECRET)
-    } catch{
-      return res.status(401).json({ error: 'token invalid' })
-    }
-  }  else {
-    return res.status(401).json({ error: 'token missing' })
-  }
-  next()
-}
-
 router.post('/', tokenExtractor, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.decodedToken.id)
+    const session = await Activesession.findOne({userId: user.id})
+    if (!session) {
+      return res.status(401).end()
+    }
     const blog = await Blog.create({...req.body, userId: user.id})
     return res.json(blog)
   } catch(error) {
@@ -79,14 +68,25 @@ router.delete('/:id', blogFinder, tokenExtractor, async (req, res) => {
     if (req.decodedToken.id !== req.blog.userId) {
       return res.status(401).end()
     }
+    const session = await Activesession.findOne({userId: user.id})
+    if (!session) {
+      return res.status(401).end()
+    }
     await req.blog.destroy()
   }
   res.status(204).end()
 })
 
-router.put('/:id', blogFinder, async (req, res, next) => {
+router.put('/:id', blogFinder, tokenExtractor, async (req, res, next) => {
   try {
     if (req.blog) {
+      if (req.decodedToken.id !== req.blog.userId) {
+        return res.status(401).end()
+      }
+      const session = await Activesession.findOne({userId: user.id})
+      if (!session) {
+        return res.status(401).end()
+      }
       req.blog.likes = req.body.likes
       await req.blog.save()
       res.json({likes: req.blog.likes})
